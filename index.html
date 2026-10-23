@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>COORDINATE · Coordinación BIM en República Dominicana</title>
+<meta name="description" content="COORDINATE: coordinación BIM, estudios con Autodesk Forma, gestión documental, supervisión de terminaciones e implementación BIM en República Dominicana.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%231c2433'/%3E%3Cg fill='%23e9eef5'%3E%3Ccircle cx='24' cy='11' r='3.4'/%3E%3Ccircle cx='33.2' cy='14.8' r='3.4'/%3E%3Ccircle cx='37' cy='24' r='3.4'/%3E%3Ccircle cx='33.2' cy='33.2' r='3.4'/%3E%3Ccircle cx='24' cy='37' r='3.4'/%3E%3Ccircle cx='14.8' cy='33.2' r='3.4'/%3E%3Ccircle cx='11' cy='24' r='3.4'/%3E%3Ccircle cx='14.8' cy='14.8' r='3.4'/%3E%3C/g%3E%3Ccircle cx='24' cy='24' r='4.5' fill='%2362a0e8'/%3E%3C/svg%3E">
+<meta property="og:title" content="COORDINATE · Coordinación BIM">
+<meta property="og:description" content="Los problemas se resuelven en el modelo, no en obra. Coordinación BIM, gestión de datos y supervisión de terminaciones en República Dominicana.">
+<meta property="og:image" content="icono-512.png">
+<meta property="og:type" content="website">
+<link rel="apple-touch-icon" href="icono-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Diseño de un solo tema (oscuro) elegido a propósito: colores explícitos en todos los elementos */
+:root{
+  color-scheme:dark;
+  --bg:#121826; --bg2:#161e2c; --panel:#1c2433; --panel2:#22436f; --line:rgba(201,211,226,.12); --line2:rgba(201,211,226,.22);
+  --ink:#e9eef5; --muted:#c9d3e2; --dim:#8a97ab;
+  --navy:#1b3560; --blue:#bcd6f3; --teal:#62a0e8; --teal2:#8ebdf0; --coral:#FF6B7D; --gold:#E9C46A; --violet:#A99BFF;
+  --a900:#192a44; --a800:#22436f; --a700:#2d5c95; --section:#1b3560; --glow:#25467a;
+  --fd:"Inter",system-ui,"Segoe UI",Arial,sans-serif;
+  --fb:"Inter",system-ui,"Segoe UI",Arial,sans-serif;
+  --fm:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--fb);font-feature-settings:"tnum" 1}
+a{color:var(--teal2)}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--fd);font-weight:500;text-wrap:balance;margin:0;line-height:1.04;letter-spacing:-.03em}
+h2{font-size:clamp(30px,3.8vw,46px);font-weight:500}
+h3{font-size:21px;font-weight:500;letter-spacing:-.015em}
+p{margin:0}
+.mono{font-family:var(--fm);font-variant-numeric:tabular-nums}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 11.5px var(--fd);letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin:0 0 16px}
+.eyebrow::before{content:"";width:18px;height:2px;background:var(--teal)}
+:focus-visible{outline:3px solid var(--teal2);outline-offset:3px}
+button{font:inherit;cursor:pointer}
+.grad{background:linear-gradient(92deg,var(--teal2),var(--blue));}
+.w.grad{background-image:linear-gradient(92deg,var(--teal2),var(--blue))}
+.grad{-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* progreso de lectura + barra */
+.prog{position:fixed;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal2),var(--blue));z-index:20;margin-top:env(safe-area-inset-top,0px)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(18,24,38,.82);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font:500 16px var(--fd);letter-spacing:.1em}
+.brand svg{width:24px;height:24px;flex:none}
+.nav{display:flex;gap:4px;font:500 14px var(--fd)}
+.nav a{color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:20px;transition:color .2s,background .2s}
+.nav a:hover{color:#fff}
+.nav a.on{color:#fff;background:rgba(98,160,232,.14)}
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;background:var(--teal);color:#121826;border:0;border-radius:10px;padding:11px 18px;font:500 15px var(--fd);text-decoration:none;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.btn[hidden]{display:none}
+.btn::after{content:"→";transition:transform .2s}
+.btn:hover{transform:translateY(-2px);background:var(--teal2);box-shadow:0 10px 30px rgba(98,160,232,.3)}
+.btn:hover::after{transform:translateX(4px)}
+.btn.ghost{background:var(--panel);box-shadow:inset 0 0 0 1px var(--line2);color:var(--ink)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--teal2),0 10px 30px rgba(0,0,0,.25)}
+.btn.sm{padding:8px 14px;font-size:14px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(900px 520px at 80% 20%,var(--a900),transparent 65%),radial-gradient(800px 500px at 10% 90%,rgba(142,189,240,.10),transparent 60%),var(--bg)}
+#net{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-block:76px 64px}
+.hero h1{font-size:clamp(42px,5.6vw,72px);font-weight:500;line-height:1.02;letter-spacing:-.035em}
+.hero h1 .w{display:inline-block;animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateY(24px);opacity:.2}to{transform:none;opacity:1}}
+.hero .lead{margin-top:24px;font-size:17px;color:var(--muted);max-width:50ch}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.band{background:linear-gradient(120deg,var(--section),var(--glow))}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-block:clamp(28px,4vw,44px)}
+.stats div{padding:0}
+.stats b{display:block;font:500 clamp(36px,4vw,52px)/1 var(--fd);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums}
+.stats span{display:block;margin-top:6px;font-size:13px;color:#dbe9fb}
+
+.sim{position:relative;background:var(--panel);border:1px solid var(--line2);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06)}
+.sim .top{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);font:500 12px var(--fm);color:var(--muted)}
+.sim .top i{width:9px;height:9px;border-radius:50%;background:#2E4865}
+.sim .top i:nth-child(1){background:#FF6B7D}.sim .top i:nth-child(2){background:#E9C46A}.sim .top i:nth-child(3){background:#62a0e8}
+.sim .top span{margin-left:auto}
+.sim svg{display:block;width:100%;height:auto}
+.simbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--line)}
+.stages{display:flex;gap:6px;flex-wrap:wrap}
+.stg{font:600 12px var(--fd);letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:20px;border:1px solid var(--line2);color:var(--muted);background:transparent;transition:all .25s}
+.stg.on{background:var(--teal);border-color:var(--teal);color:#121826}
+.stg.bad.on{background:#D1495B;border-color:#D1495B}
+.simctl{display:flex;gap:6px}
+.ic{width:32px;height:32px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line2);background:transparent;color:#fff}
+.ic:hover{background:rgba(255,255,255,.08)}
+
+/* marquesina */
+.marq{border-bottom:1px solid var(--line);overflow:hidden;background:var(--bg2)}
+.marq .track{display:flex;gap:48px;width:max-content;padding-block:16px;animation:mq 38s linear infinite;font:500 14px var(--fd);letter-spacing:.08em;color:var(--dim)}
+.marq:hover .track{animation-play-state:paused}
+.marq span{display:inline-flex;align-items:center;gap:48px;white-space:nowrap}
+.marq span::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* secciones */
+section.s{padding-block:clamp(64px,9vw,112px);position:relative}
+.head{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end;margin-bottom:44px}
+.head p{color:var(--muted);max-width:56ch}
+
+/* ciclo de vida */
+.life{display:grid;grid-template-columns:300px 1fr;gap:28px}
+.lsel{display:grid;gap:10px;align-content:start}
+.lbtn{position:relative;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px 18px;color:var(--ink);overflow:hidden;transition:border-color .25s,background .25s,transform .25s}
+.lbtn:hover{transform:translateX(4px)}
+.lbtn .n{font:500 12px var(--fm);color:var(--dim)}
+.lbtn b{display:block;font:500 19px var(--fd);letter-spacing:-.01em;margin-top:2px}
+.lbtn small{display:block;color:var(--muted);font-size:14px}
+.lbtn .pb{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal2))}
+.lbtn[aria-selected="true"]{background:var(--panel2);border-color:rgba(98,160,232,.5)}
+.lbtn[aria-selected="true"] .n{color:var(--teal2)}
+.lview{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:28px;min-height:100%}
+.lview .lt{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-bottom:22px}
+.lview h3{font-size:clamp(28px,3vw,38px);font-weight:700}
+.lview .lt p{color:var(--muted);max-width:52ch;margin-top:8px}
+.big{font:500 clamp(64px,8vw,110px)/.8 var(--fd);letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.2px rgba(142,189,240,.35)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{position:relative;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:20px;overflow:hidden;transition:transform .3s,border-color .3s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(98,160,232,.16),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover{transform:translateY(-4px);border-color:rgba(98,160,232,.45)}
+.card:hover::before{opacity:1}
+.card code{font:500 11.5px var(--fm);color:var(--teal2);letter-spacing:.06em}
+.card h4{margin:6px 0 8px;font:500 19px/1.2 var(--fd);letter-spacing:-.015em;color:#fff}
+.card p{font-size:15px;color:var(--muted)}
+.card .new{position:absolute;top:14px;right:14px;font:700 10.5px var(--fd);letter-spacing:.14em;text-transform:uppercase;color:#121826;background:var(--teal2);padding:3px 8px;border-radius:20px}
+.chipsrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tag{font:500 12px var(--fm);color:var(--blue);border:1px solid var(--line2);border-radius:20px;padding:4px 10px}
+.fade{animation:fin .45s ease}
+@keyframes fin{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* modelo federado */
+.fed{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:stretch}
+.viewer{position:relative;background:radial-gradient(600px 380px at 50% 45%,rgba(98,160,232,.14),transparent 70%),var(--bg2);border:1px solid var(--line);border-radius:18px;overflow:hidden;min-height:440px;touch-action:none;cursor:grab}
+.viewer:active{cursor:grabbing}
+#bim{display:block;width:100%;height:100%;position:absolute;inset:0}
+.vhint{position:absolute;left:14px;bottom:12px;font:500 12px var(--fm);color:var(--dim);pointer-events:none}
+.vlab{position:absolute;right:14px;top:12px;font:500 12px var(--fm);color:var(--muted);pointer-events:none}
+.ctl{display:grid;gap:14px;align-content:start}
+.ctl .box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.ctl .lab{font:600 12.5px var(--fd);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:10px}
+.ctl .lab b{font:500 13px var(--fm);color:var(--teal2);letter-spacing:0;text-transform:none}
+.dsc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dbtn{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;border:1px solid var(--line2);background:transparent;color:var(--muted);font:600 14px var(--fd);letter-spacing:.06em;text-align:left;transition:all .2s}
+.dbtn i{width:12px;height:12px;border-radius:3px;background:var(--c);opacity:.35;transition:opacity .2s}
+.dbtn[aria-pressed="true"]{color:#fff;border-color:var(--c);background:rgba(255,255,255,.04)}
+.dbtn[aria-pressed="true"] i{opacity:1}
+input[type=range]{width:100%;accent-color:#62a0e8}
+.legend{font-size:14px;color:var(--muted)}
+.legend b{color:#fff}
+
+/* proceso */
+.proc{display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:start}
+.tabs{display:grid;gap:8px;counter-reset:s}
+.tab{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);transition:border-color .2s,background .2s}
+.tab::before{counter-increment:s;content:counter(s);width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line2);display:grid;place-items:center;font:700 15px var(--fd);color:var(--muted)}
+.tab b{font:600 18px var(--fd)}
+.tab[aria-selected="true"]{border-color:rgba(98,160,232,.55);background:var(--panel2)}
+.tab[aria-selected="true"]::before{background:var(--teal);border-color:var(--teal);color:#121826}
+.panel{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:28px}
+.panel h3{font-size:30px}
+.panel .desc{margin-top:10px;color:var(--muted);max-width:60ch}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:22px}
+.kv div{background:var(--bg2);padding:12px 14px}
+.kv span{display:block;font:600 11.5px var(--fd);letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.kv b{font:500 14px var(--fm);color:var(--teal2)}
+.pbar{margin-top:22px;height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+.pbar i{display:block;height:100%;width:20%;background:linear-gradient(90deg,var(--teal),var(--teal2));transition:width .45s ease}
+
+/* registro */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.checks{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
+.checks li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:16px;color:var(--muted)}
+.checks li::before{content:"";width:10px;height:10px;margin-top:8px;border-radius:50%;background:var(--teal2);box-shadow:0 0 0 4px rgba(98,160,232,.16)}
+.log{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.logh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px;border-bottom:1px solid var(--line)}
+.flt{display:flex;gap:4px;background:var(--bg2);padding:3px;border-radius:20px}
+.flt button{font:600 12px var(--fd);letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:0;background:transparent;color:var(--muted)}
+.flt button[aria-pressed="true"]{background:var(--teal);color:#121826}
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;width:100%;padding:12px 16px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;font:13px var(--fm);transition:background .2s}
+.row:hover{background:rgba(255,255,255,.03)}
+.pill{font:600 11px var(--fd);letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;transition:all .25s}
+.pill.a{background:rgba(255,107,125,.14);color:var(--coral)}
+.pill.o{background:rgba(98,160,232,.14);color:var(--teal2)}
+.logf{padding:14px 16px;display:grid;gap:8px;font:12.5px var(--fm);color:var(--muted)}
+.bar2{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar2 i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--teal2));transition:width .45s ease}
+.hint{font:13px var(--fb);color:var(--dim)}
+
+/* estimador */
+.est{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start}
+.ebox{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px}
+.fld{display:grid;gap:10px;margin-bottom:22px}
+.fld>span{font:600 12.5px var(--fd);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.fld>span b{font:500 15px var(--fm);color:#fff;letter-spacing:0;text-transform:none}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 13px var(--fd);letter-spacing:.06em;padding:7px 12px;border-radius:20px;border:1px solid var(--line2);background:transparent;color:var(--muted);transition:all .15s}
+.chip[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#121826}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--bg2);border-radius:12px;padding:3px}
+.seg button{border:0;background:transparent;padding:9px;font:600 14px var(--fd);color:var(--muted);border-radius:10px}
+.seg button[aria-pressed="true"]{background:var(--panel2);color:#fff;box-shadow:inset 0 0 0 1px var(--teal2)}
+.res{position:sticky;top:90px;background:linear-gradient(160deg,var(--a800),var(--a900) 60%);border:1px solid rgba(98,160,232,.35);border-radius:18px;padding:26px;box-shadow:0 30px 70px rgba(0,0,0,.35)}
+.res .lines{display:grid;gap:10px;margin-top:6px}
+.res .ln{display:flex;justify-content:space-between;gap:10px;font-size:15px;border-bottom:1px dashed var(--line2);padding-bottom:8px;color:var(--muted)}
+.res .ln .mono{color:#fff}
+.tot{margin-top:18px}
+.tot span{font:600 12.5px var(--fd);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.tot b{display:block;font:500 clamp(30px,3.6vw,44px) var(--fd);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums}
+.tot small{font:13px var(--fm);color:var(--teal2)}
+.note{margin-top:14px;font-size:13.5px;color:var(--dim)}
+
+/* contacto */
+.cta-band{position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--line2);background:radial-gradient(700px 300px at 85% 0%,rgba(98,160,232,.22),transparent 60%),linear-gradient(135deg,var(--section),var(--bg) 75%);padding:clamp(28px,5vw,56px)}
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:grid;gap:6px;font:600 12.5px var(--fd);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+label.full{grid-column:1/-1}
+input,select,textarea{font:16px var(--fb);color:var(--ink);background:rgba(10,21,34,.7);border:1px solid var(--line2);border-radius:10px;padding:11px 13px;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--teal2);outline:none;box-shadow:0 0 0 3px rgba(98,160,232,.18)}
+textarea{min-height:110px;resize:vertical}
+.out{grid-column:1/-1;display:none;border:1px solid var(--line2);border-left:4px solid var(--teal2);background:rgba(10,21,34,.7);padding:14px 16px;border-radius:10px}
+.out.on{display:block;animation:fin .35s ease}
+.out pre{white-space:pre-wrap;font:13px var(--fm);margin:8px 0 0;color:var(--ink)}
+.mail{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:22px}
+.mail .mono{font-size:18px;color:#fff;user-select:all}
+.copy{font:600 13px var(--fd);letter-spacing:.1em;text-transform:uppercase;background:transparent;border:1.5px solid var(--line2);color:var(--ink);border-radius:20px;padding:6px 12px}
+footer{border-top:1px solid var(--line);color:var(--dim);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:28px}
+
+@media (max-width:960px){
+  .hero .wrap,.head,.two,.contact,.proc,.est,.life,.fed{grid-template-columns:1fr}
+  .nav{display:none}
+  .kv{grid-template-columns:1fr}
+  .res{position:static}
+  .lsel{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  .stats{grid-template-columns:1fr 1fr}
+  form,.dsc{grid-template-columns:1fr}
+  .bar .btn{display:none}
+  .lsel{grid-template-columns:1fr}
+}
+</style>
+
+</head>
+<body>
+<div class="prog" id="prog" aria-hidden="true"></div>
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="COORDINATE, inicio">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><g fill="currentColor"><circle cx="24" cy="6" r="4.2"/><circle cx="36.7" cy="11.3" r="4.2"/><circle cx="42" cy="24" r="4.2"/><circle cx="36.7" cy="36.7" r="4.2"/><circle cx="24" cy="42" r="4.2"/><circle cx="11.3" cy="36.7" r="4.2"/><circle cx="6" cy="24" r="4.2"/><circle cx="11.3" cy="11.3" r="4.2"/></g><circle cx="24" cy="24" r="6" fill="#62a0e8"/></svg>
+      COORDINATE
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#servicios">Servicios</a><a href="#modelo">Modelo</a><a href="#proceso">Proceso</a><a href="#interferencias">Registro</a><a href="#estimador">Estimador</a>
+    </nav>
+    <a class="btn sm" href="#contacto">Propuesta</a>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Coordinación BIM · República Dominicana</p>
+      <h1 id="h1">Los problemas se resuelven en el modelo, no en obra.</h1>
+      <p class="lead">Acompañamos el proyecto completo: estudiamos el terreno antes de diseñar, coordinamos arquitectura, estructura e instalaciones antes de construir y supervisamos las terminaciones hasta la entrega.</p>
+      <div class="cta">
+        <a class="btn" href="#contacto">Solicitar propuesta</a>
+        <a class="btn ghost" href="#estimador">Estimar mi proyecto</a>
+      </div>
+    </div>
+    <figure class="sim" style="margin:0">
+      <div class="top"><i></i><i></i><i></i><span>INT-0042 · Ronda 2 · Nivel 3</span></div>
+      <svg id="iso" viewBox="-330 -250 720 450" role="img" aria-labelledby="isoT">
+        <title id="isoT">Animación: un ducto de aire atraviesa una viga, se detecta la interferencia, se asigna al diseñador y el ducto se desvía por debajo de la viga</title>
+        <g id="scene"></g><g id="fx"></g>
+      </svg>
+      <div class="simbar">
+        <div class="stages"><span class="stg" data-s="0">Modelar</span><span class="stg bad" data-s="1">Detectar</span><span class="stg" data-s="2">Asignar</span><span class="stg" data-s="3">Resolver</span></div>
+        <div class="simctl"><button class="ic" id="play" type="button" aria-label="Pausar animación">❚❚</button><button class="ic" id="replay" type="button" aria-label="Repetir animación">↺</button></div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="band" aria-label="COORDINATE en cifras">
+      <div class="wrap stats" aria-label="COORDINATE en cifras">
+        <div><b data-n="4">4</b><span>etapas cubiertas</span></div>
+        <div><b data-n="11">11</b><span>servicios</span></div>
+        <div><b data-n="20">20</b><span>rutinas Dynamo propias</span></div>
+        <div><b data-n="13">13</b><span>chequeos por modelo</span></div>
+      </div>
+</section>
+
+<div class="marq" aria-label="Herramientas y estándares">
+  <div class="track" id="track"><span>Revit</span><span>Autodesk Forma</span><span>Dynamo</span><span>IFC</span><span>BCF 2.1</span><span>AutoCAD</span><span>ISO 19650</span><span>Entorno común de datos</span><span>LOD 200–500</span><span>Cuantificación 5D</span></div>
+</div>
+
+<section class="s" id="servicios">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Servicios</p><h2>Del terreno a la entrega, <span class="grad">con un solo equipo</span></h2></div>
+      <p>Trabajamos con los diseñadores y contratistas que ya contrataste. Organizamos la información y damos seguimiento para que cada etapa llegue a la siguiente sin problemas. Elige una etapa.</p>
+    </div>
+    <div class="life">
+      <div class="lsel" role="tablist" aria-label="Etapas del proyecto" id="lsel"></div>
+      <div class="lview" role="tabpanel" id="lview" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="modelo" style="background:linear-gradient(180deg,var(--bg),var(--bg2))">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Modelo federado</p><h2>Todas las disciplinas, <span class="grad">un solo modelo</span></h2></div>
+      <p>Gira el edificio, separa los niveles y enciende o apaga cada disciplina. Así revisamos la coordinación con tu equipo en cada reunión.</p>
+    </div>
+    <div class="fed">
+      <div class="viewer" id="viewer" aria-label="Modelo 3D interactivo de un edificio de 4 niveles">
+        <canvas id="bim" role="img" aria-label="Edificio de ejemplo con arquitectura, estructura e instalaciones"></canvas>
+        <span class="vlab" id="vlab">Modelo de ejemplo · 4 niveles</span>
+        <span class="vhint">Arrastra para girar</span>
+      </div>
+      <div class="ctl">
+        <div class="box"><div class="lab">Disciplinas</div><div class="dsc" id="dsc"></div></div>
+        <div class="box"><div class="lab">Separar niveles <b id="exV">0 %</b></div><input type="range" id="ex" min="0" max="100" value="35" aria-label="Separación entre niveles"></div>
+        <div class="box"><div class="lab">Giro <b id="rotV">auto</b></div><input type="range" id="rot" min="0" max="360" value="30" aria-label="Ángulo de giro"></div>
+        <div class="box legend" id="legend"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="proceso">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Proceso</p><h2>Cada ronda de coordinación <span class="grad">sigue el mismo ciclo</span></h2></div>
+      <p>Selecciona un paso para ver qué hacemos, qué recibes y con qué herramienta lo producimos.</p>
+    </div>
+    <div class="proc">
+      <div class="tabs" role="tablist" aria-label="Pasos del ciclo" id="tabs"></div>
+      <div class="panel" role="tabpanel" id="panel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="interferencias" style="background:var(--bg2)">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">Registro de interferencias</p>
+      <h2>Cada problema tiene <span class="grad">ID, responsable y estado</span></h2>
+      <p style="margin-top:16px;color:var(--muted)">Así se ve el registro que compartimos en cada ronda. Filtra por estado y toca una fila para marcarla como resuelta.</p>
+      <ul class="checks">
+        <li>Exportación BCF para que cada diseñador vea el problema en su software</li>
+        <li>Vista 3D por interferencia y comparación contra la versión anterior</li>
+        <li>Panel del cliente con el avance de cada ronda</li>
+      </ul>
+    </div>
+    <div class="log">
+      <div class="logh">
+        <span class="mono" style="font-size:13px;color:var(--muted)">Ronda 2 · modelo de ejemplo</span>
+        <div class="flt" id="flt"><button type="button" data-f="all" aria-pressed="true">Todas</button><button type="button" data-f="a" aria-pressed="false">Abiertas</button><button type="button" data-f="o" aria-pressed="false">Resueltas</button></div>
+      </div>
+      <div id="rows"></div>
+      <div class="logf">
+        <div style="display:flex;justify-content:space-between"><span>Avance de la ronda</span><span id="cnt"></span></div>
+        <div class="bar2"><i id="barI"></i></div>
+        <span class="hint">Datos de ejemplo. Los cambios solo se ven en tu pantalla.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="estimador">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Estimador</p><h2>¿Cuánto costaría <span class="grad">acompañar tu proyecto?</span></h2></div>
+      <p>Mueve los controles para ver un rango de referencia con nuestras tarifas del mercado dominicano. La propuesta final depende de la complejidad y de la información disponible.</p>
+    </div>
+    <div class="est">
+      <div class="ebox">
+        <div class="fld"><span>Área de construcción <b id="aV"></b></span><input type="range" id="area" min="1000" max="60000" step="500" value="12000" aria-label="Área de construcción en metros cuadrados"></div>
+        <div class="fld"><span>Disciplinas <b id="dV"></b></span><div class="chips" id="disc"></div></div>
+        <div class="fld"><span>Nivel de desarrollo</span><div class="seg" id="lod"><button type="button" data-v="1.5" aria-pressed="false">LOD 200</button><button type="button" data-v="3" aria-pressed="true">LOD 300–400</button><button type="button" data-v="6" aria-pressed="false">LOD 500</button></div></div>
+        <div class="fld"><span>Rondas de coordinación <b id="fV"></b></span><input type="range" id="fases" min="0" max="6" step="1" value="3" aria-label="Número de rondas de coordinación"></div>
+        <div class="fld"><span>Servicios adicionales</span><div class="chips" id="xtra"></div></div>
+        <div class="fld" style="margin-bottom:0"><span>Meses de obra acompañados <b id="mV"></b></span><input type="range" id="meses" min="0" max="18" step="1" value="6" aria-label="Meses de obra con gestión documental o supervisión"></div>
+      </div>
+      <div class="res" aria-live="polite">
+        <p class="eyebrow">Estimación de referencia</p>
+        <div class="lines" id="lines"></div>
+        <div class="tot"><span>Total estimado sin ITBIS</span><b id="tot"></b><small id="pm2"></small></div>
+        <button class="btn" type="button" id="toForm" style="margin-top:20px">Pedir propuesta con estos datos</button>
+        <p class="note">Rango de referencia. No incluye ITBIS, viajes fuera de Santo Domingo ni cambios fuera de alcance. La supervisión de terminaciones considera visitas semanales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="contacto" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band">
+      <div class="contact">
+        <div>
+          <p class="eyebrow">Contacto</p>
+          <h2>Cuéntanos de <span class="grad">tu proyecto</span></h2>
+          <p style="margin-top:16px;color:var(--muted)">Con el área aproximada, las disciplinas y la fase del proyecto te enviamos una propuesta en 48 horas hábiles.</p>
+          <div class="mail"><span class="mono" id="mail">hola.coordinate.rd@gmail.com</span><button class="copy" type="button" id="copyMail">Copiar correo</button></div>
+        </div>
+        <form id="f" novalidate>
+          <label>Nombre<input id="nom" autocomplete="name"></label>
+          <label>Empresa<input id="emp" autocomplete="organization"></label>
+          <label>Tipo de proyecto<select id="tipo"><option>Torre residencial</option><option>Hotel / turismo</option><option>Comercial / oficinas</option><option>Industrial</option><option>Salud / institucional</option><option>Otro</option></select></label>
+          <label>Área aproximada (m²)<input id="areaF" type="number" min="0" step="100" inputmode="numeric"></label>
+          <label class="full">Mensaje<textarea id="msg" placeholder="Fase del proyecto, disciplinas, fechas…"></textarea></label>
+          <div style="grid-column:1/-1"><button class="btn" type="submit">Preparar solicitud</button></div>
+          <div class="out" id="out" role="status" aria-live="polite">
+            <strong>Tu solicitud está lista.</strong> Envíala por correo o por WhatsApp, o cópiala.
+            <pre id="txt"></pre>
+            <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn" id="sendMail" href="#">Enviar por correo</a><a class="btn" id="sendWa" href="#" target="_blank" rel="noopener" hidden>Enviar por WhatsApp</a><button class="copy" type="button" id="copyTxt">Copiar solicitud</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 COORDINATE · Coordinación BIM para arquitectura y construcción</span>
+    <span>Santo Domingo, República Dominicana · <a href="https://shaggy2983.github.io/" style="color:inherit">App de obra COORDINATE · Obra</a></span>
+  </div>
+</footer>
+
+<script>
+/* ============ Animación isométrica de interferencia (determinista en t) ============ */
+var ISO=(function(){
+  var NS="http://www.w3.org/2000/svg", C=0.866, S=0.5, DUR=9;
+  function P(x,y,z){return [(x-y)*C,(x+y)*S-z]}
+  function poly(pts,fill,stroke,op){var p=document.createElementNS(NS,"polygon");p.setAttribute("points",pts.map(function(a){return a[0].toFixed(1)+","+a[1].toFixed(1)}).join(" "));p.setAttribute("fill",fill);if(stroke){p.setAttribute("stroke",stroke);p.setAttribute("stroke-width","1")}if(op!=null)p.setAttribute("opacity",op);return p}
+  function box(g,b,col,op,dash){ // b=[x0,x1,y0,y1,z0,z1]
+    var x0=b[0],x1=b[1],y0=b[2],y1=b[3],z0=b[4],z1=b[5]; if(x1-x0<.5||y1-y0<.5||z1-z0<.5)return;
+    var st="rgba(255,255,255,.35)";
+    var top=poly([P(x0,y0,z1),P(x1,y0,z1),P(x1,y1,z1),P(x0,y1,z1)],col[0],st,op);
+    var fx=poly([P(x1,y0,z0),P(x1,y1,z0),P(x1,y1,z1),P(x1,y0,z1)],col[1],st,op);
+    var fy=poly([P(x0,y1,z0),P(x1,y1,z0),P(x1,y1,z1),P(x0,y1,z1)],col[2],st,op);
+    [top,fx,fy].forEach(function(e){if(dash){e.setAttribute("stroke","#FF8A98");e.setAttribute("stroke-dasharray","4 3");e.setAttribute("stroke-width","1.4")}g.appendChild(e)});
+  }
+  function txt(g,x,y,s,col,size,anchor,op){var t=document.createElementNS(NS,"text");t.setAttribute("x",x);t.setAttribute("y",y);t.setAttribute("fill",col);t.setAttribute("font-family","JetBrains Mono,Consolas,monospace");t.setAttribute("font-size",size||11);if(anchor)t.setAttribute("text-anchor",anchor);if(op!=null)t.setAttribute("opacity",op);t.textContent=s;g.appendChild(t);return t}
+  function tag(g,x,y,label,bg,op){var w=label.length*7+18;var r=document.createElementNS(NS,"rect");r.setAttribute("x",x);r.setAttribute("y",y-15);r.setAttribute("width",w);r.setAttribute("height",22);r.setAttribute("rx",11);r.setAttribute("fill",bg);r.setAttribute("opacity",op);g.appendChild(r);txt(g,x+9,y,label,"#fff",11,null,op)}
+  var clamp=function(v){return v<0?0:v>1?1:v}, ease=function(v){v=clamp(v);return v<.5?2*v*v:1-Math.pow(-2*v+2,2)/2};
+  function stage(t){return t<1.6?0:t<3.4?1:t<5?2:3}
+  function render(svg,t){
+    var sc=svg.querySelector("#scene"),fx=svg.querySelector("#fx");sc.innerHTML="";fx.innerHTML="";
+    var BEAM=["#8793A8","#5C6880","#46506A"], DUCT=["#9CC6F4","#62A0E8","#3D7CC4"], SLAB="rgba(255,255,255,.025)";
+    // losa y columna
+    box(sc,[-60,470,-80,340,232,244],[SLAB,"rgba(255,255,255,.06)","rgba(255,255,255,.04)"],.6);
+    box(sc,[196,244,300,340,0,232],["#6B778D","#515C72","#3C4559"],.55);
+    // parámetros de tiempo
+    var grow=ease(t/1.6), L=-40+grow*500;               // entrada del ducto
+    var dip=ease((t-5)/1.6)*78;                          // desvío bajo la viga
+    var zT=208, zB=172;                                  // ducto: base 172 a 208 (choca con viga 160–220)
+    var y0=128,y1=172, bx0=196,bx1=244;
+    function seg(a,b,z0,z1,dash,op){var e=Math.min(b,L);if(e>a)box(sc,[a,e,y0,y1,z0,z1],DUCT,op==null?1:op,dash)}
+    // tramo izquierdo (detrás de la viga)
+    seg(-40,150,zB,zT);
+    // bajantes y tramo central bajo la viga (se dibujan antes de la viga)
+    var clashOn = t>=1.6 && dip<0.5;
+    if(dip>0.5){ seg(150,168,zB-dip,zT); seg(168,272,zB-dip,zT-dip); seg(272,290,zB-dip,zT); }
+    else if(!clashOn){ seg(150,290,zB,zT); }
+    // viga (translúcida para ver el ducto)
+    box(sc,[bx0,bx1,-80,340,160,220],BEAM,dip>0.5?0.72:0.9);
+    // tramo central en conflicto (fantasma rojo sobre la viga)
+    if(clashOn){ seg(150,290,zB,zT,true,0.8); }
+    // tramo derecho
+    seg(290,460,zB,zT);
+    // etiquetas de elementos
+    var pb=P(bx0,340,160); txt(sc,pb[0]-10,pb[1]+22,"EST · VIGA V-12 400×600","#C9D3E2",11,"end");
+    var pd=P(-40,y1,zT); if(L>60) txt(sc,pd[0]-30,pd[1]-24,"MEC · DUCTO 600×400","#BCD6F3",11,null,clamp((L-60)/60));
+    // efectos
+    var c=P(220,150,190);
+    if(t>=1.6 && t<5.2){
+      var k=((t-1.6)%1.1)/1.1, op=t<5?1:clamp((5.2-t)/.2);
+      var ring=document.createElementNS(NS,"circle");ring.setAttribute("cx",c[0]);ring.setAttribute("cy",c[1]);ring.setAttribute("r",10+k*34);ring.setAttribute("fill","none");ring.setAttribute("stroke","#FF6B7D");ring.setAttribute("stroke-width",2.5*(1-k)+.5);ring.setAttribute("opacity",(1-k)*op);fx.appendChild(ring);
+      var dot=document.createElementNS(NS,"circle");dot.setAttribute("cx",c[0]);dot.setAttribute("cy",c[1]);dot.setAttribute("r",9);dot.setAttribute("fill","#D1495B");dot.setAttribute("stroke","#fff");dot.setAttribute("stroke-width",2);dot.setAttribute("opacity",op);fx.appendChild(dot);
+      tag(fx,c[0]+26,c[1]-40,"INT-0042 · EST × MEC","#D1495B",clamp((t-1.8)/.4)*op);
+      if(t>=3.4) tag(fx,c[0]+26,c[1]-10,"Asignado: diseñador MEC","#22436F",clamp((t-3.4)/.4)*op);
+    }
+    if(t>=6.2){
+      var o=clamp((t-6.2)/.5)*(t>8.4?clamp((DUR-t)/.6):1);
+      var g=document.createElementNS(NS,"circle");g.setAttribute("cx",c[0]);g.setAttribute("cy",c[1]);g.setAttribute("r",9);g.setAttribute("fill","#62A0E8");g.setAttribute("stroke","#fff");g.setAttribute("stroke-width",2);g.setAttribute("opacity",o);fx.appendChild(g);
+      tag(fx,c[0]+26,c[1]-40,"INT-0042 · Resuelta","#3D7CC4",o);
+      txt(fx,c[0]+26,c[1]-6,"Δ ducto: +2 codos · +1.2 ml","#C9D3E2",11,null,o);
+    }
+    // marcador de tiempo
+    txt(fx,-318,188,"Ronda 2 · Nivel 3","rgba(255,255,255,.35)",10);
+    return stage(t);
+  }
+  return {render:render,DUR:DUR,stage:stage};
+})();
+
+
+
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var f=function(v,d){return Number(v).toLocaleString("en-US",{minimumFractionDigits:d||0,maximumFractionDigits:d||0})};
+
+  /* ---- titular palabra por palabra ---- */
+  (function(){var h=$("h1"),words=h.textContent.trim().split(/\s+/),hi={"modelo,":1,"no":1,"en":0,"obra.":1};var html="";var after=false;
+    words.forEach(function(w,i){var cls=(i>=words.length-3)?' class="w grad"':' class="w"';html+='<span'+cls+' style="animation-delay:'+(i*60)+'ms">'+w+'</span> '});h.innerHTML=html})();
+
+  /* ---- red de coordinación en el hero (canvas) ---- */
+  (function(){var c=$("net"),x=c.getContext("2d"),W,H,dpr,P=[];
+    function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=c.clientWidth;H=c.clientHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);
+      P=[];var n=Math.round(W*H/26000);for(var i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.6+.6,p:Math.random()*6.28})}
+    function draw(t){x.clearRect(0,0,W,H);
+      x.strokeStyle="rgba(142,189,240,.05)";x.lineWidth=1;var g=64,o=(t*.006)%g;
+      for(var gx=-g+o;gx<W;gx+=g){x.beginPath();x.moveTo(gx,0);x.lineTo(gx,H);x.stroke()}
+      for(var gy=-g+o*.5;gy<H;gy+=g){x.beginPath();x.moveTo(0,gy);x.lineTo(W,gy);x.stroke()}
+      for(var i=0;i<P.length;i++){var a=P[i];if(!reduce){a.x+=a.vx;a.y+=a.vy}if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
+        for(var j=i+1;j<P.length;j++){var b=P[j],dx=a.x-b.x,dy=a.y-b.y,d=dx*dx+dy*dy;if(d<16000){x.strokeStyle="rgba(98,160,232,"+(0.16*(1-d/16000))+")";x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}}
+      for(var k=0;k<P.length;k++){var q=P[k],pu=.5+.5*Math.sin(t*.002+q.p);x.fillStyle="rgba(98,160,232,"+(0.35+0.4*pu)+")";x.beginPath();x.arc(q.x,q.y,q.r+pu*.8,0,6.283);x.fill()}}
+    size();addEventListener("resize",size);
+    (function loop(t){draw(t||0);if(!reduce)requestAnimationFrame(loop)})();})();
+
+  /* ---- contadores ---- */
+  (function(){var els=[].slice.call(document.querySelectorAll("[data-n]"));if(reduce||!("IntersectionObserver" in window))return;
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.unobserve(e.target);var el=e.target,n=+el.dataset.n,t0=performance.now();
+      (function step(t){var k=Math.min(1,(t-t0)/1100),v=Math.round(n*(1-Math.pow(1-k,3)));el.textContent=v;if(k<1)requestAnimationFrame(step)})(t0)})},{threshold:.6});
+    els.forEach(function(e){io.observe(e)})})();
+
+  /* ---- barra de progreso y navegación ---- */
+  var prog=$("prog");addEventListener("scroll",function(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+"%"},{passive:true});
+  var links=[].slice.call(document.querySelectorAll(".nav a"));
+  if("IntersectionObserver" in window){var nio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(l){l.classList.toggle("on",l.getAttribute("href")==="#"+e.target.id)})})},{rootMargin:"-45% 0px -50% 0px"});["servicios","modelo","proceso","interferencias","estimador"].forEach(function(id){nio.observe($(id))})}
+
+  /* ---- marquesina: duplicar contenido para bucle continuo ---- */
+  $("track").innerHTML+=$("track").innerHTML;
+
+  /* ---- animación de interferencia ---- */
+  var svg=$("iso"),t0=performance.now(),paused=false,pausedAt=0;
+  var stg=[].slice.call(document.querySelectorAll(".stg"));
+  function show(t){var s=ISO.render(svg,t);stg.forEach(function(e){e.classList.toggle("on",+e.dataset.s===s)})}
+  function loop(now){if(!paused)show(((now-t0)/1000)%ISO.DUR);requestAnimationFrame(loop)}
+  if(reduce){paused=true;show(4.2);$("play").textContent="▶"}else{show(0);requestAnimationFrame(loop)}
+  $("play").addEventListener("click",function(){var now=performance.now();if(paused){t0=now-pausedAt*1000;paused=false;this.textContent="❚❚";this.setAttribute("aria-label","Pausar animación")}else{pausedAt=((now-t0)/1000)%ISO.DUR;paused=true;this.textContent="▶";this.setAttribute("aria-label","Reproducir animación")}});
+  $("replay").addEventListener("click",function(){t0=performance.now();if(paused){paused=false;$("play").textContent="❚❚"}});
+  stg.forEach(function(e){e.style.cursor="pointer";e.addEventListener("click",function(){var at=[0.8,2.4,4.2,7.2][+e.dataset.s];t0=performance.now()-at*1000;pausedAt=at;if(paused)show(at)})});
+
+  /* ---- etapas del proyecto (servicios) ---- */
+  var LIFE=[
+    {k:"Factibilidad",s:"Antes de diseñar",d:"Decidimos con datos la mejor ocupación del terreno y dejamos listas las reglas del proyecto BIM.",tags:["Informe de alternativas","Revit geolocalizado","BEP"],
+     c:[["FORMA","Estudios tempranos con Autodesk Forma","Volumetrías de alternativas en el terreno real, horas de sol, desempeño ambiental y carbono incorporado. La opción elegida pasa a Revit.",1],["BEP","Plan de ejecución BIM","Estándares, nomenclatura, niveles de desarrollo y calendario de entregas acordados desde el inicio.",0]]},
+    {k:"Diseño",s:"Antes de construir",d:"Las disciplinas encajan en el modelo y no en obra, con cantidades que salen del mismo modelo.",tags:["RVT · IFC","XLSX · BCF 2.1","Presupuesto por partida"],
+     c:[["ARQ · EST · MEP","Modelado por disciplina","Modelos LOD 200 a 400 desde planos o modelos existentes, con parámetros listos para cuantificar.",0],["CLASH","Coordinación e interferencias","Rondas de detección con registro, responsables y seguimiento en formato BCF hasta el cierre.",0],["5D","Cuantificación trazable","Cantidades y costos por partida extraídos del modelo, con el cambio de costo entre versiones.",0]]},
+    {k:"Obra",s:"Mientras se construye",d:"En obra se construye con el plano vigente y las terminaciones se revisan antes de la entrega.",tags:["Registro de planos vigentes","Informe con fotos","Lista de pendientes"],
+     c:[["CDE","Gestión de planos y documentos","Entorno común de datos, control de planos vigentes y revisiones, RFI y transmittals para que nadie construya con un plano viejo.",1],["DOC","Documentación","Juegos de láminas con cajetín, revisiones y transmittal de cada emisión en PDF y DWG.",0],["TERM","Asesoría y supervisión de terminaciones","Revisión de muestras, inspección de acabados contra planos y especificaciones, y lista de pendientes hasta la entrega.",1]]},
+    {k:"Empresa",s:"Para tu organización",d:"Tu equipo técnico aprende a trabajar en BIM con estándares propios y herramientas que ahorran horas.",tags:["Manual de estándares","Plantilla .rte","Capacitación"],
+     c:[["IMPL","Implementación BIM y gestión de proyectos","Diagnóstico, estándares y plantilla corporativa, BEP de la empresa, capacitación y acompañamiento como BIM Manager.",1],["AUTO","Automatización","Rutinas Dynamo y scripts a medida para tareas repetitivas de tu oficina técnica.",0]]}
+  ];
+  var lsel=$("lsel"),lview=$("lview"),lcur=0,lauto=!reduce,lt0=performance.now(),LDUR=7000;
+  LIFE.forEach(function(L,i){var b=document.createElement("button");b.type="button";b.className="lbtn";b.setAttribute("role","tab");b.id="lb"+i;
+    b.innerHTML='<span class="n">0'+(i+1)+'</span><b>'+L.k+'</b><small>'+L.s+'</small><span class="pb"></span>';
+    b.addEventListener("click",function(){lauto=false;lpick(i)});lsel.appendChild(b)});
+  function lpick(i){lcur=i;lt0=performance.now();[].forEach.call(lsel.children,function(b,k){b.setAttribute("aria-selected",k===i?"true":"false");b.querySelector(".pb").style.width=(k===i&&!lauto?"100%":"0")});
+    var L=LIFE[i];lview.innerHTML='<div class="fade"><div class="lt"><div><p class="eyebrow">Etapa 0'+(i+1)+' · '+L.s+'</p><h3>'+L.k+'</h3><p>'+L.d+'</p></div><span class="big" aria-hidden="true">0'+(i+1)+'</span></div><div class="cards">'+
+      L.c.map(function(c){return '<article class="card">'+(c[3]?'<span class="new">Nuevo</span>':'')+'<code>'+c[0]+'</code><h4>'+c[1]+'</h4><p>'+c[2]+'</p></article>'}).join("")+
+      '</div><div class="chipsrow">'+L.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join("")+'</div></div>';
+    lview.setAttribute("aria-labelledby","lb"+i)}
+  lpick(0);
+  lview.addEventListener("mouseenter",function(){lauto=false;[].forEach.call(lsel.children,function(b,k){b.querySelector(".pb").style.width=k===lcur?"100%":"0"})});
+  (function ltick(t){if(lauto){var k=(t-lt0)/LDUR;var pb=lsel.children[lcur].querySelector(".pb");pb.style.width=Math.min(100,k*100)+"%";if(k>=1)lpick((lcur+1)%LIFE.length)}requestAnimationFrame(ltick)})(performance.now());
+  document.addEventListener("pointermove",function(e){var c=e.target.closest&&e.target.closest(".card");if(!c)return;var r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px")});
+
+  /* ---- modelo federado 3D (canvas) ---- */
+  (function(){
+    var cv=$("bim"),vw=$("viewer"),x=cv.getContext("2d"),W,H,dpr,theta=30*Math.PI/180,auto=!reduce,ex=.35,drag=null;
+    var DC={ARQ:["Arquitectura","#D5DDE8"],EST:["Estructura","#7D8BA3"],MEC:["Mecánica / HVAC","#62A0E8"],HDS:["Hidrosanitaria","#A99BFF"],ELE:["Eléctrica","#E9C46A"],FAC:["Fachada","#BCD6F3"]};
+    var on={ARQ:1,EST:1,MEC:1,HDS:1,ELE:1,FAC:1};
+    var B=[],LV=4,LH=60,Wd=240,Dp=160;
+    function add(d,l,b,op){B.push({d:d,l:l,b:b,op:op||1})}
+    for(var l=0;l<LV;l++){var z=l*LH;
+      add("EST",l,[0,Wd,0,Dp,z,z+7],.6);
+      [8,116,224].forEach(function(cx){[8,76,144].forEach(function(cy){add("EST",l,[cx-6,cx+6,cy-6,cy+6,z+7,z+LH])})});
+      add("EST",l,[2,Wd-2,70,82,z+LH-12,z+LH]);
+      add("ARQ",l,[150,196,20,64,z+7,z+LH]);                 // núcleo
+      add("ARQ",l,[20,110,100,103,z+7,z+LH-14]); add("ARQ",l,[60,63,103,150,z+7,z+LH-14]); add("ARQ",l,[140,230,112,115,z+7,z+LH-14]);
+      add("MEC",l,[10,230,118,134,z+LH-26,z+LH-15]);            // ducto
+      add("MEC",l,[100,112,134,152,z+LH-24,z+LH-17]);
+      add("ELE",l,[30,40,10,150,z+LH-17,z+LH-13]);              // bandeja
+      add("HDS",l,[200,206,70,76,z,z+LH]);                      // montante
+      add("HDS",l,[118,200,72,76,z+LH-30,z+LH-27]);
+      add("FAC",l,[0,Wd,-2,0,z+7,z+LH],.22); add("FAC",l,[Wd,Wd+2,0,Dp,z+7,z+LH],.22); add("FAC",l,[0,Wd,Dp,Dp+2,z+7,z+LH],.22); add("FAC",l,[-2,0,0,Dp,z+7,z+LH],.22);
+    }
+    add("EST",LV,[0,Wd,0,Dp,LV*LH,LV*LH+7]);  // cubierta
+    var C=.866,S=.5,cx0=Wd/2,cy0=Dp/2;
+    function hex2(h,k){var n=parseInt(h.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;return "rgb("+Math.round(r*k)+","+Math.round(g*k)+","+Math.round(b*k)+")"}
+    function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=vw.clientWidth;H=vw.clientHeight;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+    function draw(){
+      x.clearRect(0,0,W,H);
+      var ct=Math.cos(theta),st=Math.sin(theta),sc=1,ox=0,oy=0,EXK=0.9;
+      function pr(px,py,pz){var X=px-cx0,Y=py-cy0,rx=X*ct-Y*st,ry=X*st+Y*ct;return [ox+(rx-ry)*C*sc,oy+((rx+ry)*S-pz)*sc,rx+ry+pz]}
+      // encuadre: proyectar las esquinas del volumen total y ajustar a la vista
+      var top=LV*LH+7+LV*LH*ex*EXK, mnx=1e9,mxx=-1e9,mny=1e9,mxy=-1e9;
+      [[-2,-2],[Wd+2,-2],[Wd+2,Dp+2],[-2,Dp+2]].forEach(function(q){[0,top].forEach(function(z){var r=pr(q[0],q[1],z);mnx=Math.min(mnx,r[0]);mxx=Math.max(mxx,r[0]);mny=Math.min(mny,r[1]);mxy=Math.max(mxy,r[1])})});
+      sc=Math.min((W-80)/(mxx-mnx),(H-70)/(mxy-mny));ox=W/2-(mnx+mxx)/2*sc;oy=H/2-(mny+mxy)/2*sc+6;
+      var faces=[];
+      // sombra en el piso
+      x.fillStyle="rgba(0,0,0,.28)";x.beginPath();[[0,0],[Wd,0],[Wd,Dp],[0,Dp]].forEach(function(p,i){var q=pr(p[0],p[1],-4);i?x.lineTo(q[0],q[1]+6):x.moveTo(q[0],q[1]+6)});x.closePath();x.fill();
+      B.forEach(function(e){if(!on[e.d])return;var b=e.b,dz=e.l*LH*ex*EXK;
+        var x0=b[0],x1=b[1],y0=b[2],y1=b[3],z0=b[4]+dz,z1=b[5]+dz;
+        var v=[[x0,y0,z0],[x1,y0,z0],[x1,y1,z0],[x0,y1,z0],[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]].map(function(p){return pr(p[0],p[1],p[2])});
+        var F=[[4,5,6,7,[0,0,1]],[0,1,5,4,[0,-1,0]],[1,2,6,5,[1,0,0]],[2,3,7,6,[0,1,0]],[3,0,4,7,[-1,0,0]]];
+        F.forEach(function(q){var n=q[4],nx=n[0]*ct-n[1]*st,ny=n[0]*st+n[1]*ct,dot=nx+ny+n[2];if(dot<=0.001)return;
+          var dep=(v[q[0]][2]+v[q[1]][2]+v[q[2]][2]+v[q[3]][2])/4;var shade=n[2]?1.08:(0.62+0.3*(nx>ny?0.6:1));
+          faces.push({p:[v[q[0]],v[q[1]],v[q[2]],v[q[3]]],dep:dep,col:DC[e.d][1],k:shade,op:e.op,fac:e.d==="FAC"})})});
+      faces.sort(function(a,b){return a.dep-b.dep});
+      faces.forEach(function(F){x.beginPath();x.moveTo(F.p[0][0],F.p[0][1]);for(var i=1;i<4;i++)x.lineTo(F.p[i][0],F.p[i][1]);x.closePath();
+        x.globalAlpha=F.op;x.fillStyle=hex2(F.col,Math.min(1.15,F.k));x.fill();x.globalAlpha=F.fac?.5:.55;x.strokeStyle=F.fac?"rgba(142,189,240,.8)":"rgba(10,21,34,.8)";x.lineWidth=.7;x.stroke();x.globalAlpha=1});
+      // etiquetas de nivel
+      x.font="500 11px JetBrains Mono, Consolas, monospace";x.fillStyle="rgba(157,176,194,.9)";
+      for(var l=0;l<LV;l++){var p=pr(0,0,l*LH+l*LH*ex*EXK+LH*.5);x.fillText("N"+(l+1),p[0]-30,p[1])}
+    }
+    function legend(){var n=0,t=[];Object.keys(on).forEach(function(k){if(on[k]){n++;t.push(k)}});var el=B.filter(function(e){return on[e.d]}).length;
+      $("legend").innerHTML="<b>"+n+" disciplinas</b> visibles · <span class='mono'>"+el+"</span> elementos. En un proyecto real el modelo federado une los archivos de cada diseñador con coordenadas compartidas."}
+    var dsc=$("dsc");Object.keys(DC).forEach(function(k){var b=document.createElement("button");b.type="button";b.className="dbtn";b.style.setProperty("--c",DC[k][1]);b.setAttribute("aria-pressed","true");b.innerHTML="<i></i>"+k;b.title=DC[k][0];
+      b.addEventListener("click",function(){on[k]=on[k]?0:1;this.setAttribute("aria-pressed",on[k]?"true":"false");legend();draw()});dsc.appendChild(b)});
+    $("ex").addEventListener("input",function(){ex=this.value/100;$("exV").textContent=this.value+" %";draw()});
+    $("rot").addEventListener("input",function(){auto=false;theta=this.value*Math.PI/180;$("rotV").textContent=this.value+"°";draw()});
+    vw.addEventListener("pointerdown",function(e){drag={x:e.clientX,t:theta};auto=false;vw.setPointerCapture(e.pointerId)});
+    vw.addEventListener("pointermove",function(e){if(!drag)return;theta=drag.t+(e.clientX-drag.x)*.01;var d=((theta*180/Math.PI)%360+360)%360;$("rot").value=d;$("rotV").textContent=Math.round(d)+"°";draw()});
+    vw.addEventListener("pointerup",function(){drag=null});vw.addEventListener("pointercancel",function(){drag=null});
+    $("exV").textContent=Math.round(ex*100)+" %";
+    size();legend();draw();addEventListener("resize",function(){size();draw()});
+    var vis=true;if("IntersectionObserver" in window){new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(vw)}
+    (function spin(){if(auto&&vis){theta+=.004;var d=((theta*180/Math.PI)%360+360)%360;$("rot").value=d;draw()}requestAnimationFrame(spin)})();
+  })();
+
+  /* ---- proceso ---- */
+  var STEPS=[
+    {t:"Revisión contra el BEP",d:"Antes de usar un modelo recibido, lo revisamos con 13 chequeos: nomenclatura, coordenadas, niveles, parámetros, advertencias y vínculos. Si no cumple, se devuelve con el reporte.",e:"Reporte APROBADO / RECHAZADO",f:"CSV + panel del cliente",h:"CRD_20 Revisión BEP"},
+    {t:"Federación",d:"Unimos las disciplinas en un modelo con coordenadas compartidas y verificamos que todo quede en su lugar antes de buscar interferencias.",e:"Modelo federado",f:"RVT · IFC",h:"Vínculos + auditoría CRD_12"},
+    {t:"Interferencias",d:"Detectamos choques por pares de disciplinas (EST×MEC, EST×SAN, MEC×ELE, PCI×MEC), les asignamos ID, nivel y responsable, y generamos una vista 3D por cada una.",e:"Registro de interferencias",f:"XLSX · BCF 2.1",h:"CRD_17 Interferencias"},
+    {t:"Reunión y cambios",d:"Revisamos el registro con los diseñadores y, al recibir la nueva versión, la comparamos contra la anterior para confirmar qué se corrigió y cómo cambiaron cantidades y costo.",e:"Minuta + comparación",f:"PDF · CSV · vista 3D",h:"CRD_19 Comparar versiones"},
+    {t:"Emisión",d:"Emitimos las láminas coordinadas con su revisión en el cajetín, el registro de emisiones y un transmittal para obra.",e:"Juego de láminas",f:"PDF · DWG · HTML",h:"CRD_18 Emisión + transmittal"}
+  ];
+  var tabs=$("tabs"),panel=$("panel");
+  STEPS.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.className="tab";b.setAttribute("role","tab");b.id="tab"+i;b.innerHTML="<b>"+s.t+"</b>";b.addEventListener("click",function(){sel(i)});
+    b.addEventListener("keydown",function(ev){if(ev.key==="ArrowDown"||ev.key==="ArrowRight"){ev.preventDefault();sel((i+1)%5,true)}if(ev.key==="ArrowUp"||ev.key==="ArrowLeft"){ev.preventDefault();sel((i+4)%5,true)}});tabs.appendChild(b)});
+  function sel(i,focus){[].forEach.call(tabs.children,function(b,k){b.setAttribute("aria-selected",k===i?"true":"false");b.tabIndex=k===i?0:-1});if(focus)tabs.children[i].focus();var s=STEPS[i];
+    panel.innerHTML='<div class="fade"><p class="eyebrow">Paso '+(i+1)+' de 5</p><h3>'+s.t+'</h3><p class="desc">'+s.d+'</p><div class="kv"><div><span>Entregable</span><b>'+s.e+'</b></div><div><span>Formato</span><b>'+s.f+'</b></div><div><span>Herramienta</span><b>'+s.h+'</b></div></div><div class="pbar"><i style="width:'+((i+1)*20)+'%"></i></div></div>';panel.setAttribute("aria-labelledby","tab"+i)}
+  sel(0);
+
+  /* ---- registro ---- */
+  var LOG=[["INT-0041","EST viga × SAN tubería 4\"","a"],["INT-0042","EST viga × MEC ducto 600×400","a"],["INT-0043","ARQ plafón × ELE bandeja","o"],["INT-0044","PCI rociador × MEC difusor","o"],["INT-0045","EST losa × HDS bajante 3\"","a"],["INT-0046","MEC ducto × ELE bandeja","a"]];
+  var filt="all";
+  function draw(){var h="";LOG.forEach(function(r,i){if(filt!=="all"&&r[2]!==filt)return;h+='<button type="button" class="row" data-i="'+i+'" aria-label="'+r[0]+', '+(r[2]==="a"?"abierta, marcar como resuelta":"resuelta, reabrir")+'"><span>'+r[0]+'</span><span>'+r[1]+'</span><span class="pill '+r[2]+'">'+(r[2]==="a"?"Abierta":"Resuelta")+'</span></button>'});
+    $("rows").innerHTML=h||'<div class="row" style="cursor:default">Sin interferencias en este filtro</div>';var ok=LOG.filter(function(r){return r[2]==="o"}).length;$("cnt").textContent=ok+" / "+LOG.length+" cerradas";$("barI").style.width=(ok/LOG.length*100)+"%"}
+  $("rows").addEventListener("click",function(e){var b=e.target.closest("[data-i]");if(!b)return;var r=LOG[+b.dataset.i];r[2]=r[2]==="a"?"o":"a";draw()});
+  $("flt").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;filt=b.dataset.f;[].forEach.call(this.children,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});draw()});
+  draw();
+
+  /* ---- estimador ---- */
+  var DISC=[["ARQ",1],["EST",1],["HDS",1],["SAN",0],["ELE",1],["MEC",0],["PCI",0],["FAC",0]];
+  var dc=$("disc");DISC.forEach(function(d){var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=d[0];b.setAttribute("aria-pressed",d[1]?"true":"false");b.addEventListener("click",function(){d[1]=d[1]?0:1;this.setAttribute("aria-pressed",d[1]?"true":"false");calc()});dc.appendChild(b)});
+  var XTRA=[["Estudio Forma",0,"u",1200],["Gestión documental",0,"m",800],["Supervisión de terminaciones",0,"m",2500],["Implementación BIM",0,"u",4500]];
+  var xc=$("xtra");XTRA.forEach(function(d){var b=document.createElement("button");b.type="button";b.className="chip";b.textContent=d[0];b.setAttribute("aria-pressed","false");b.addEventListener("click",function(){d[1]=d[1]?0:1;this.setAttribute("aria-pressed",d[1]?"true":"false");calc()});xc.appendChild(b)});
+  var lodV=3,lodN="LOD 300–400";
+  $("lod").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;lodV=+b.dataset.v;lodN=b.textContent;[].forEach.call(this.children,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});calc()});
+  var last={},shown=0;
+  function tween(to){var from=shown,t0=performance.now();shown=to;if(reduce){put(to);return}(function st(t){var k=Math.min(1,(t-t0)/450),v=from+(to-from)*(1-Math.pow(1-k,3));put(v);if(k<1)requestAnimationFrame(st)})(t0)}
+  function put(v){$("tot").textContent="US$ "+f(v*0.9)+" – "+f(v*1.15)}
+  function calc(){var a=+$("area").value,n=DISC.filter(function(d){return d[1]}).length,r=+$("fases").value,ms=+$("meses").value;
+    $("aV").textContent=f(a)+" m²";$("dV").textContent=n+" seleccionadas";$("fV").textContent=r;$("mV").textContent=ms;
+    var mod=a*lodV*n,coord=r*1500,xs=0,xh="";
+    XTRA.forEach(function(d){if(!d[1])return;var v=d[2]==="m"?d[3]*ms:d[3];xs+=v;xh+='<div class="ln"><span>'+d[0]+(d[2]==="m"?' · '+ms+' mes'+(ms===1?'':'es'):'')+'</span><span class="mono">US$ '+f(v)+'</span></div>'});
+    var base=Math.max(mod+coord+xs,(n||r||xs)?500:0);
+    $("lines").innerHTML='<div class="ln"><span>Modelado · '+n+' disc. × '+lodN+'</span><span class="mono">US$ '+f(mod)+'</span></div><div class="ln"><span>Coordinación · '+r+' ronda'+(r===1?'':'s')+'</span><span class="mono">US$ '+f(coord)+'</span></div>'+xh;
+    tween(base);$("pm2").textContent=a?("≈ US$ "+f(base/a,2)+" por m² de construcción"):"";
+    last={a:a,disc:DISC.filter(function(d){return d[1]}).map(function(d){return d[0]}).join(", "),lod:lodN,r:r,x:XTRA.filter(function(d){return d[1]}).map(function(d){return d[0]}).join(", "),ms:ms}}
+  ["area","fases","meses"].forEach(function(id){$(id).addEventListener("input",calc)});shown=0;calc();
+  $("toForm").addEventListener("click",function(){$("areaF").value=last.a;$("msg").value="Disciplinas: "+(last.disc||"por definir")+"\nNivel de desarrollo: "+last.lod+"\nRondas de coordinación: "+last.r+(last.x?"\nServicios adicionales: "+last.x+" ("+last.ms+" meses de obra)":"");$("contacto").scrollIntoView({behavior:reduce?"auto":"smooth"});setTimeout(function(){$("nom").focus({preventScroll:true})},600)});
+
+  /* ---- contacto ----
+     CORREO y WHATSAPP: cambiar aquí cuando exista hola@coordinate.do.
+     WHATSAPP con código de país y sin signos (p. ej. "18095551234"); vacío = sin botón. */
+  var CORREO="hola.coordinate.rd@gmail.com", WHATSAPP="";
+  $("mail").textContent=CORREO;
+  function copy(text,btn){var done=function(){var o=btn.textContent;btn.textContent="Copiado";setTimeout(function(){btn.textContent=o},1600)};try{navigator.clipboard.writeText(text).then(done,function(){selTxt(btn)})}catch(e){selTxt(btn)}}
+  function selTxt(btn){var t=btn.id==="copyMail"?$("mail"):$("txt");var r=document.createRange();r.selectNodeContents(t);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Selecciona y copia"}
+  $("copyMail").addEventListener("click",function(e){copy($("mail").textContent,e.currentTarget)});
+  $("copyTxt").addEventListener("click",function(e){copy($("txt").textContent,e.currentTarget)});
+  $("f").addEventListener("submit",function(e){e.preventDefault();var n=$("nom");
+    if(!n.value.trim()){n.setCustomValidity("Escribe tu nombre para preparar la solicitud");n.reportValidity();n.setCustomValidity("");return}
+    var a=$("areaF").value?f($("areaF").value)+" m²":"por definir";
+    $("txt").textContent="Asunto: Solicitud de propuesta BIM\n\nNombre: "+n.value.trim()+"\nEmpresa: "+($("emp").value.trim()||"-")+"\nTipo de proyecto: "+$("tipo").value+"\nÁrea: "+a+"\n\n"+($("msg").value.trim()||"");
+    var asunto="Solicitud de propuesta BIM", cuerpo=$("txt").textContent.replace(/^Asunto:[^\n]*\n\n/,"");
+    $("sendMail").href="mailto:"+CORREO+"?subject="+encodeURIComponent(asunto)+"&body="+encodeURIComponent(cuerpo);
+    if(WHATSAPP){$("sendWa").hidden=false;$("sendWa").href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent($("txt").textContent)}
+    $("out").classList.add("on")});
+})();
+</script>
+
+</body>
+</html>
